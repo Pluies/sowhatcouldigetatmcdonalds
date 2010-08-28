@@ -93,6 +93,7 @@ get '/results/?' do
 			  else
 				  " Exact price, neat!"
 			  end
+		@redo = "I'm somehow dissatisfied."
 		@content = result
 		haml :index
 	end
