@@ -89,7 +89,7 @@ get '/results/?' do
 		end
 		result.gsub!( /^./ ) {|c| c.upcase } # Capitalize only the first letter
 		result += if centsLeft >= 1
-				  " And you'll even have %.0f¢ left!" % centsLeft
+				  " And you'll even have %.f¢ left!" % centsLeft
 			  else
 				  " Exact price, neat!"
 			  end
