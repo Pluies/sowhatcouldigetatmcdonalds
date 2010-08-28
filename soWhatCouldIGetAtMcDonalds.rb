@@ -4,8 +4,8 @@ require 'haml'
 require 'sqlite3'
 require 'McDoItem'
 
-# General configuration
-# set :haml, {:format => :html5 }  # Bad for the DOCTYPE
+# So what could I get at McDonalds?
+# v0.1 - Heroku deployment
 
 # Standard pages
 get '/' do
