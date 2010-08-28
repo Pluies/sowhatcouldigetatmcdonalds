@@ -1,0 +1,17 @@
+#content
+	%h1
+		So what could I get at&nbsp;
+		%span.mcDonalds
+			%img{:src=>"m.png", :alt=>"M", :width=>"50px", :height=>"42px" }>
+			cDonalds?
+	%form{:action=>"/results", :method=>"get"}
+		%input.amount{:type=>"text", :name=>"price", :title=>"Enter an amount in dollars", :value=>"Depends. How much do you have?", :size=>"40" }
+		%input{:type=>"submit", :title=>"I'm lovin' it already!", :value=>"Go!"}
+	#results=@content
+	#restart
+		%a{:href=>request.url}= @redo
+#footer
+	%p#disclaimer This site is not affiliated with McDonalds. Like, at all.
+	%p#what
+		%a{:href=>"/about"} What is that? Where am I? Who are you?
+

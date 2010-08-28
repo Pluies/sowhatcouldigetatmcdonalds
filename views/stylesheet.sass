@@ -1,0 +1,130 @@
+// Variables and mixins
+$footerHeight: 3em
+$McDoRed: #f20508
+$McDoYellow: #fcc405
+=center
+  width: 70%
+  text-align: center
+  :margin
+    left: auto
+    right: auto
+=floatin
+  font-size: 0.7em
+  color: #000
+  position: absolute
+  padding: 0.4em
+  background-color: white
+  a
+    color: $McDoRed
+    text-decoration: none
+    border-bottom: 1px dotted $McDoRed
+    &:hover
+      border-bottom: 0px
+
+
+// SASS
+*
+  margin: 0
+  padding: 0
+
+html
+  height: 100%
+
+body
+  :font
+    family: Georgia
+  color: #777
+  height: 100%
+  min-height: 100%
+
+  // Opera Footer Fix
+  &:before
+    content: ""
+    height: 100%
+    float: left
+    width: 0
+    margin-top: -32767px
+
+
+h1
+  :padding
+    top: 2em
+    bottom: 2em
+  .mcDonalds
+    color: #000
+    img
+      margin-bottom: -1px
+    :font
+      family: helvetica
+      style: bold
+
+
+.amount
+  font-style: italic
+  color: #999
+  text-align: center
+
+#content
+  overflow: auto
+  padding-bottom: $footerHeight
+  min-height: 90%
+  +center
+
+.mcdo_item
+  color: $McDoRed
+  display: inline
+
+.hover
+  color: $McDoYellow
+
+.floatin
+  +floatin
+
+.floatinfix
+  +floatin
+  border: 1px dashed
+
+
+#results
+  display: block
+  font-size: 1.3em
+  :padding
+    top: 4em
+    bottom: 2em
+
+#restart
+  :font
+    size: 0.9em
+    style: italic
+  a
+    color: $McDoRed
+    text-decoration: none
+    &:hover
+      border-bottom: 1px dashed $McDoRed
+
+#footer
+  position: relative
+  // negative value of footer height
+  margin-top: -$footerHeight
+  height: $footerHeight
+  clear: both
+  +center
+
+#disclaimer
+  :font
+    size: 0.6em
+    style: italic
+  padding-bottom: 1em
+
+#what
+  font-size: 0.6em
+  a
+    color: $McDoYellow
+    text-decoration: none
+    border-bottom: 1px dotted $McDoRed
+    &:hover
+      color: $McDoRed
+      border-bottom: 0px
+    &:visited
+      text-decoration: none
+

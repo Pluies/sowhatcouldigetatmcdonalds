@@ -1,0 +1,10 @@
+!!!
+%html{ :xmlns=>"http://www.w3.org/1999/xhtml" }
+	%head
+		%title= @title
+		%meta{ "http-equiv"=>"Content-Type", :content=>"text/html; charset:UTF-8" }
+		%link{ :rel=>"stylesheet", :type=>"text/css", :href=>"/stylesheet.css" }
+		%link{ :rel=>"icon", :type=>"image/png", :href=>"/w.png" }
+		%script{ :type=>"text/javascript", :src=>"/jquery.js" }
+		%script{ :type=>"text/javascript", :src=>"/mcdo.js" }
+	%body= yield
