@@ -37,7 +37,7 @@ get '/results/?' do
 	# Weed out bigbig numbers
 	case price
 	when 100_000..1_999_999
-		@content = "$"+ commify(Integer price)+"? Seriously? A whole lot of food. No, I won't compute that for you. That's too much. You'd become obese and you'd die. I don't want to feel the guilt for the rest of my life. I might be a webserver, but I'm not heartless. Unlike you after eating all that and suffering a stroke. Your little human heart is not made for that. It's a no."
+		@content = "$"+ commify(Integer price)+"? Seriously? A whole lot of food. No, I won't compute that for you. That's too much. You'd become obese and you'd die. I don't want to feel the guilt for the rest of my life. I might be a webserver, but I'm not heartless. Unlike you after eating all that and suffering a stroke. Your little human body is not made for that. It's a no."
 		halt haml :index
 	when 2_000_000..79_999_999_999
 		@content = "Errr, a few franchises?"
