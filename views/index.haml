@@ -4,7 +4,7 @@
 		%span.mcDonalds
 			%img{:src=>"m.png", :alt=>"M", :width=>"50px", :height=>"42px" }>
 			cDonalds?
-	%form{:action=>"/results", :method=>"get"}
+	%form{:action=>"/results", :method=>"get", :id=>"mainForm"}
 		%input.amount{:type=>"text", :name=>"price", :title=>"Enter an amount in dollars", :value=>"Depends. How much do you have?", :size=>"40" }
 		%input{:type=>"submit", :title=>"I'm lovin' it already!", :value=>"Go!"}
 	#results=@content

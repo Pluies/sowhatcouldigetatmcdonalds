@@ -47,14 +47,30 @@ body
 
 h1
   :padding
-    top: 2em
-    bottom: 2em
+    top: 1em
+    bottom: 1em
   .mcDonalds
     color: #000
     img
       margin-bottom: -1px
     :font
       family: helvetica
+
+p
+  :padding
+    top: 0.5em
+    bottom: 0.5em
+
+a
+  color: $McDoRed
+  text-decoration: none
+  &:hover
+    border-bottom: 1px dashed $McDoRed
+  &:visited
+    color: $McDoYellow
+
+#mainForm
+  padding-top: 3em
 
 .amount
   font-style: italic
@@ -93,11 +109,6 @@ h1
   :font
     size: 0.9em
     style: italic
-  a
-    color: $McDoRed
-    text-decoration: none
-    &:hover
-      border-bottom: 1px dashed $McDoRed
 
 #footer
   position: relative

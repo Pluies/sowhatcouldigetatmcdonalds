@@ -14,26 +14,36 @@ get '/' do
 	haml :index
 end
 
+get '/about/?' do
+	@title = "About"
+	haml :about
+end
+
 get '/results/?' do
+	if params['price'].match /£|€/
+		@title = "You're FOREIGN!?"
+		@content = "Désolé / lo siento / es tut mir leid / mi scusi / sorry mate / het spijt me / lo siento / Мне жаль / jag är ledsen / 对不起: I only accept American Dollars as currency (so far)."
+		halt haml :index
+	end
 	begin
-		price = Float params['price']
+		price = Float params['price'].delete '$'
 	rescue ArgumentError
-		@title = "In space, no one will hear you scream."
+		@title = "In space, no one will hear you order."
 		@content = "I'm afraid I can't do that with something else than a number, Dave."
 		halt haml :index
 	end
 	@title = "Results for $%.2f" % price
+	Infinity = 1.0/0 # Ooooohhhh... Yes, I'm as terrified as you by the fact that this works
 	# Weed out bigbig numbers
-	Infinity = 1.0/0 # Ooooohhhh... I'm terrified by the fact that this works
 	case price
 	when 100_000..1_999_999
 		@content = "$"+ commify(Integer price)+"? Seriously? A whole lot of food. No, I won't compute that for you. That's too much. You'd become obese and you'd die. I don't want to feel the guilt for the rest of my life. I might be a webserver, but I'm not heartless. Unlike you after eating all that and suffering a stroke. Your little human heart is not made for that. It's a no."
 		halt haml :index
-	when 2_000_000..399_999_999
-		@content = "Errr, $"+ commify(Integer price)+"? A few franchises."
+	when 2_000_000..79_999_999_999
+		@content = "Errr, a few franchises?"
 		halt haml :index
-	when 400_000_000..Infinity
-		@content = "$"+ commify(Integer price)+"? You could probably buy all of McDonalds stock for that kind of money."
+	when 80_000_000_000..Infinity
+		@content = "You could probably buy all of McDonalds stock for that kind of money."
 		halt haml :index
 	end
 
@@ -79,9 +89,7 @@ get '/results/?' do
 			itemStr = prefix + '<div id="mcdo_' + item.id.to_s + '" class="mcdo_item" >' + itemStr + '</div>'
 			# Prettyprinting: punctuation
 			if item.label == order.last[0]
-				if order.length > 1
-					result = result.chomp(', ') + " and "
-				end
+				result = result.chomp(', ') + " and " unless order.one?
 				result += itemStr+"."
 			else
 				result += itemStr+", "
@@ -93,7 +101,7 @@ get '/results/?' do
 			  else
 				  " Exact price, neat!"
 			  end
-		@redo = "I'm somehow dissatisfied."
+		@redo = "I'm somehow dissatisfied. Do it again."
 		@content = result
 		haml :index
 	end
@@ -109,7 +117,7 @@ def commify(n)
 	int.reverse + dec
 end
 
-
+# Load prices from the SQLite database to the class array @@menu
 def loadAllPrices( dbName )
 	@@menu=[]
 	@@db ||= SQLite3::Database.new( dbName )
@@ -118,6 +126,7 @@ def loadAllPrices( dbName )
 	end
 end
 
+# Searches for a relatively close price in the @@menu
 def searchForClosePrice( price )
 	# Our order is an hash of itemLabel (String) => item (McDoItem)
 	order = {}
@@ -142,6 +151,7 @@ def searchForClosePrice( price )
 	order
 end
 
+# Create the table and populates it with data from menu.txt
 get '/populate/?' do
 	@@db ||= SQLite3::Database.new( "database.db" )
 	@@db.execute( "drop table if exists prices" )
