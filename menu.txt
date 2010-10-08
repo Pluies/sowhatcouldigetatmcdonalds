@@ -1,8 +1,8 @@
 2.69:Big Mac:Big Macs
 2.89:Quarter Pounder with cheese:Quarter Pounders with cheese
-1.89:Big N' Tasty:
-3.69:Double Quarter Pounder with cheese:Double Quarter Pounders with cheese
 3.09:Chicken Selects (3 Pc.):
-3.79:Chicken McNuggets (10 Pc.):
+3.79:McNuggets (10 Pc.):
 2.49:Filet-O-Fish:Filet-O-Fishes
+1.49:Medium beverage:Medium beverages
+1.39:Medium Fries:
 1:Sundae:Sundaes
