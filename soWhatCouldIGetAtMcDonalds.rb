@@ -10,6 +10,7 @@ require 'McDoItem'
 # Standard pages
 get '/' do
 	@title = "So what could I get at McDonalds?"
+	@price_box = "Depends. How much do you have?"
 	@content = "Hit me!"
 	haml :index
 end
@@ -20,6 +21,7 @@ get '/about/?' do
 end
 
 get '/results/?' do
+	@price_box = params['price'].clone # To keep track of the request and display it again in the search box
 	if params['price'].match /£|€/
 		@title = "You're FOREIGN!?"
 		@content = "Désolé / es tut mir leid / mi scusi / sorry mate / het spijt me / lo siento / Мне жаль / jag är ledsen / 对不起: I only accept American Dollars as currency (so far)."
