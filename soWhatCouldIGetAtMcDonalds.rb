@@ -22,14 +22,17 @@ end
 get '/results/?' do
 	if params['price'].match /£|€/
 		@title = "You're FOREIGN!?"
-		@content = "Désolé / lo siento / es tut mir leid / mi scusi / sorry mate / het spijt me / lo siento / Мне жаль / jag är ledsen / 对不起: I only accept American Dollars as currency (so far)."
+		@content = "Désolé / es tut mir leid / mi scusi / sorry mate / het spijt me / lo siento / Мне жаль / jag är ledsen / 对不起: I only accept American Dollars as currency (so far)."
 		halt haml :index
 	end
 	begin
-		price = Float params['price'].delete '$'
+		# Make sure the price is either of the form 00.00$ or $00.00
+		params['price'].gsub! /\$(\d*\.?\d*)/, '\1'
+		params['price'].gsub! /(\d*\.?\d*)\$/, '\1'
+		price = Float params['price']
 	rescue ArgumentError
 		@title = "In space, no one will hear you order."
-		@content = "I'm afraid I can't do that with something else than a number, Dave."
+		@content = "I'm afraid I can't do that with something else than a price, Dave." # Debug:  "(you gave me #{params['price']})."
 		halt haml :index
 	end
 	@title = "Results for $%.2f" % price
