@@ -29,8 +29,8 @@ get '/results/?' do
 	end
 	begin
 		# Make sure the price is either of the form 00.00$ or $00.00
-		params['price'].gsub! /\$(\d*\.?\d*)/, '\1'
-		params['price'].gsub! /(\d*\.?\d*)\$/, '\1'
+		params['price'].gsub! /^\$(\d*\.?\d*)$/, '\1'
+		params['price'].gsub! /^(\d*\.?\d*)\$$/, '\1'
 		price = Float params['price']
 	rescue ArgumentError
 		@title = "In space, no one will hear you order."
