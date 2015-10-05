@@ -1,8 +1,9 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
+require 'sass'
 require 'sqlite3'
-require 'McDoItem'
+require './McDoItem'
 
 # So what could I get at McDonalds?
 # v0.1 - Heroku deployment
