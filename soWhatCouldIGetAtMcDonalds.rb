@@ -2,7 +2,6 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'sass'
-require 'sqlite3'
 require './McDoItem'
 
 # So what could I get at McDonalds?
@@ -126,10 +125,14 @@ end
 # Load prices from the SQLite database to the class array @@menu
 def loadAllPrices( dbName )
 	@@menu=[]
-	@@db ||= SQLite3::Database.new( dbName )
-	@@db.execute("select rowid, price, label, labelPlural from prices") do |row|
-		@@menu << McDoItem.new( row[0], row[1], row[2], row[3] )
-	end
+	@@menu << McDoItem.new(1, 2.69,"Big Mac","Big Macs")
+	@@menu << McDoItem.new(2, 2.89, "Quarter Pounder with cheese", "Quarter Pounders with cheese")
+	@@menu << McDoItem.new(3, 3.09,"Chicken Selects (3 Pc.)", "")
+	@@menu << McDoItem.new(4, 3.79,"McNuggets (10 Pc.)", "")
+	@@menu << McDoItem.new(5, 2.49,"Filet-O-Fish", "Filet-O-Fishes")
+	@@menu << McDoItem.new(6, 1.49,"Medium beverage", "Medium beverages")
+	@@menu << McDoItem.new(7, 1.39,"Medium Fries", "")
+	@@menu << McDoItem.new(8, 1.0,"Sundae", "Sundaes")
 end
 
 # Searches for a relatively close price in the @@menu
@@ -158,24 +161,24 @@ def searchForClosePrice( price )
 end
 
 # Create the table and populates it with data from menu.txt
-get '/populate/?' do
-	@@db ||= SQLite3::Database.new( "database.db" )
-	@@db.execute( "drop table if exists prices" )
-	@@db.execute( "create table prices( price float(5.2), label varchar(120), labelPlural varchar(120) )" )	
-	File::readlines("menu.txt").each do |line|
-		if line =~ /.*:.*/
-			valuesToInsert = line.chomp.split(':')
-			case valuesToInsert.count
-			when 2 # If there's no plural defined, split only gives 2 values
-				@@db.execute 'insert into prices(price, label, labelPlural) values (%s, "%s", "")' % valuesToInsert
-			when 3
-				@@db.execute 'insert into prices(price, label, labelPlural) values (%s, "%s", "%s")' % valuesToInsert
-			end
-		end
-	end
-	@title = "Population complete."
-	haml :populate
-end
+#get '/populate/?' do
+#	@@db ||= SQLite3::Database.new( "database.db" )
+#	@@db.execute( "drop table if exists prices" )
+#	@@db.execute( "create table prices( price float(5.2), label varchar(120), labelPlural varchar(120) )" )	
+#	File::readlines("menu.txt").each do |line|
+#		if line =~ /.*:.*/
+#			valuesToInsert = line.chomp.split(':')
+#			case valuesToInsert.count
+#			when 2 # If there's no plural defined, split only gives 2 values
+#				@@db.execute 'insert into prices(price, label, labelPlural) values (%s, "%s", "")' % valuesToInsert
+#			when 3
+#				@@db.execute 'insert into prices(price, label, labelPlural) values (%s, "%s", "%s")' % valuesToInsert
+#			end
+#		end
+#	end
+#	@title = "Population complete."
+#	haml :populate
+#end
 
 get '/stylesheet.css' do
 	content_type 'text/css', :charset => 'utf-8'
@@ -188,4 +191,5 @@ not_found do
 end
 
 # Templates
+
 
